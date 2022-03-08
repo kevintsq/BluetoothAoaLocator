@@ -38,7 +38,7 @@
 #define MAX_ALLOWLIST_SIZE 73
 static uint8_t allowlist[MAX_ALLOWLIST_SIZE][ADR_LEN];
 static uint32_t allowlist_size;
-static sl_status_t aoa_address_compare(uint8_t address1[ADR_LEN], uint8_t address2[ADR_LEN]);
+static sl_status_t aoa_address_compare(const uint8_t address1[ADR_LEN], const uint8_t address2[ADR_LEN]);
 
 void aoa_id_copy(aoa_id_t dst, aoa_id_t src)
 {
@@ -51,7 +51,7 @@ int aoa_id_compare(aoa_id_t id1, aoa_id_t id2)
   return strncasecmp(id1, id2, AOA_ID_MAX_SIZE);
 }
 
-static sl_status_t aoa_address_compare(uint8_t address1[ADR_LEN], uint8_t address2[ADR_LEN])
+static sl_status_t aoa_address_compare(const uint8_t address1[ADR_LEN], const uint8_t address2[ADR_LEN])
 {
   sl_status_t ret_val = SL_STATUS_OK;
   int i;
@@ -98,7 +98,7 @@ sl_status_t aoa_id_to_address(aoa_id_t id, uint8_t address[ADR_LEN], uint8_t *ad
 
   do {
     token = strtok_r(id_cache, delimiter, &saveptr);
-    // Look for the "ble" preffix.
+    // Look for the "ble" prefix.
     // If there is no BLE string found in the beginning, abort.
     if (token == NULL || strcasecmp("ble", token) != 0) {
       ret = SL_STATUS_NOT_FOUND;

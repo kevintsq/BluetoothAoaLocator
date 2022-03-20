@@ -96,14 +96,11 @@ void app_init(int argc, char *argv[])
     switch (opt) {
       // Socket connection parameters.
       case 's':
-        printf("%s\n", optarg);
         strtok(optarg, ":");
-        printf("%s\n", optarg);
         host = malloc(strlen(optarg) + 1);
         if (host != NULL) {
           strcpy(host, optarg);
         }
-        printf("%s\n", host);
         char *port = strtok(NULL, ":");
         if (port != NULL) {
           strcpy(port_str, port);

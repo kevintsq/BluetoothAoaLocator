@@ -65,9 +65,6 @@ int main(int argc, char* argv[])
     // Do not remove this call: Silicon Labs components process action routine
     // must be called from the super loop.
     sl_system_process_action();
-
-    // Application process.
-    app_process_action();
   }
 
   return EXIT_SUCCESS;

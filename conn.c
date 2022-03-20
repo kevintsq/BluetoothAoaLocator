@@ -107,7 +107,7 @@ uint8_t remove_connection(uint16_t connection)
   }
 
   // Find the table index of the connection to be removed
-  for (uint8_t i = 0; i < active_connections_num; i++) {
+  for (i = 0; i < active_connections_num; i++) {
     if (conn_properties[i].connection_handle == connection) {
       table_index = i;
       break;

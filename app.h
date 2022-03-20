@@ -40,7 +40,6 @@ extern "C" {
 #include "conn.h"
 
 void app_init(int argc, char *argv[]);
-void app_process_action(void);
 void app_deinit(void);
 
 #define SCAN_INTERVAL                 16   //10ms

@@ -247,7 +247,7 @@ void app_on_iq_report(conn_properties_t *tag, aoa_iq_report_t *iq_report)
   }
 
   // Send message
-  rc = tcp_tx(&handle, SOCKET_BUFFER_SIZE, (uint8_t *)&payload);
+  rc = tcp_tx(&handle, strlen(payload), (uint8_t *)&payload);
   if (rc < 0) {
     app_log_info("Connection Closed." APP_LOG_NL);
     app_deinit();

@@ -243,7 +243,7 @@ void app_on_iq_report(conn_properties_t *tag, aoa_iq_report_t *iq_report)
 
   // Compile payload
   rc = snprintf(payload, SOCKET_BUFFER_SIZE,
-                "{\n\t\"timeStamp\": %d,\n\t\"type\": \"auditory\", \n\t\"tagId\": \"%s\",\n\t\"azimuth\": %f,\n\t\"distance\": %f,\n\t\"elevation\": %f,\n\t\"quality\": %u\n}\r\n",
+                "{\n\t\"timeStamp\": %d,\n\t\"type\": \"auditory\", \n\t\"tagId\": \"%02X\",\n\t\"azimuth\": %f,\n\t\"distance\": %f,\n\t\"elevation\": %f,\n\t\"quality\": %u\n}\r\n",
                 angle.sequence, tag->address.addr[0], angle.azimuth, angle.distance, angle.elevation, angle.quality);
   if (print) {
     printf("%s", payload);

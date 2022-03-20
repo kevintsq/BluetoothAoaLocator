@@ -48,10 +48,10 @@
 #endif // AOA_ANGLE
 
 // Optstring argument for getopt.
-#define OPTSTRING      NCP_HOST_OPTSTRING APP_LOG_OPTSTRING "s:c:t:h"
+#define OPTSTRING      NCP_HOST_OPTSTRING APP_LOG_OPTSTRING "s:c:ph"
 
 // Usage info.
-#define USAGE          APP_LOG_NL "%s " NCP_HOST_USAGE APP_LOG_USAGE "[-s <server_address>[:<port>]] [-c <config>] [-t] [-h]" APP_LOG_NL
+#define USAGE          APP_LOG_NL "%s " NCP_HOST_USAGE APP_LOG_USAGE "[-s <server_address>[:<port>]] [-c <config>] [-p] [-h]" APP_LOG_NL
 
 // Options info.
 #define OPTIONS                                                                  \
@@ -63,7 +63,7 @@
   "        <port>           Port of the socket server (default: 8080)\n"         \
   "    -c  Locator configuration file.\n"                                        \
   "        <config>         Path to the configuration file\n"                    \
-  "    -t  Print results to the terminal.\n"                                     \
+  "    -p  Print results to the terminal.\n"                                     \
   "    -h  Print this help message.\n"
 
 static void parse_config(char *filename);

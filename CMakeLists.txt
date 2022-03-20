@@ -53,4 +53,4 @@ add_executable(BluetoothAoaLocator system.h
         tcp.h)
 target_link_libraries(BluetoothAoaLocator -lm -lstdc++ -lpthread ${CMAKE_SOURCE_DIR}/libaox_static_armv7.a)
 add_definitions(-DPOSIX -DHOST_TOOLCHAIN -DAPP_LOG_NEW_LINE=APP_LOG_NEW_LINE_RN -DSL_CATALOG_APP_LOG_PRESENT -DAOA_ANGLE -DRTL_LIB)
-add_compile_options(-fno-short-enums -Wall -fmessage-length=0 -MMD -MP -MF -Wno-misleading-indentation -O0 -g3)
+add_compile_options(-fno-short-enums -Wall -Ofast -flto -march=native)

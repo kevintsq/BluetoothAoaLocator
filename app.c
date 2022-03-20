@@ -240,7 +240,7 @@ void app_on_iq_report(conn_properties_t *tag, aoa_iq_report_t *iq_report)
 
   // Compile payload
   rc = snprintf(payload, SOCKET_BUFFER_SIZE,
-                "{\n\t\"timeStamp\": %d,\n\t\"tagId\": %s,\n\t\"azimuth\": %f,\n\t\"distance\": %f,\n\t\"elevation\": %f,\n\t\"quality\": %u\n}\n\r",
+                "{\n\t\"timeStamp\": %d,\n\t\"type\": \"bt\", \n\t\"tagId\": %s,\n\t\"azimuth\": %f,\n\t\"distance\": %f,\n\t\"elevation\": %f,\n\t\"quality\": %u\n}\n\r",
                 angle.sequence, tag_id, angle.azimuth, angle.distance, angle.elevation, angle.quality);
   printf("%s", payload);
   if (rc < 0) {

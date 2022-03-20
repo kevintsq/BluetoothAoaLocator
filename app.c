@@ -223,12 +223,12 @@ void sl_bt_on_event(sl_bt_msg_t *evt)
  *****************************************************************************/
 void app_on_iq_report(conn_properties_t *tag, aoa_iq_report_t *iq_report)
 {
-  aoa_id_t tag_id;
+  // aoa_id_t tag_id;
   int rc;
   enum sl_rtl_error_code ec;
   aoa_angle_t angle;
 
-  aoa_address_to_id(tag->address.addr, tag->address_type, tag_id);
+  // aoa_address_to_id(tag->address.addr, tag->address_type, tag_id);
 
   ec = aoa_calculate(&tag->aoa_state, iq_report, &angle);
   if (ec == SL_RTL_ERROR_ESTIMATION_IN_PROGRESS) {
@@ -244,7 +244,7 @@ void app_on_iq_report(conn_properties_t *tag, aoa_iq_report_t *iq_report)
   // Compile payload
   rc = snprintf(payload, SOCKET_BUFFER_SIZE,
                 "{\n\t\"timeStamp\": %d,\n\t\"type\": \"auditory\", \n\t\"tagId\": \"%s\",\n\t\"azimuth\": %f,\n\t\"distance\": %f,\n\t\"elevation\": %f,\n\t\"quality\": %u\n}\r\n",
-                angle.sequence, tag_id, angle.azimuth, angle.distance, angle.elevation, angle.quality);
+                angle.sequence, tag->address.addr[0], angle.azimuth, angle.distance, angle.elevation, angle.quality);
   if (print) {
     printf("%s", payload);
   }

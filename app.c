@@ -48,10 +48,10 @@
 #endif // AOA_ANGLE
 
 // Optstring argument for getopt.
-#define OPTSTRING      NCP_HOST_OPTSTRING APP_LOG_OPTSTRING "s:c:h"
+#define OPTSTRING      NCP_HOST_OPTSTRING APP_LOG_OPTSTRING "s:c:t:h"
 
 // Usage info.
-#define USAGE          APP_LOG_NL "%s " NCP_HOST_USAGE APP_LOG_USAGE "[-s <server_address>[:<port>]] [-c <config>] [-h]" APP_LOG_NL
+#define USAGE          APP_LOG_NL "%s " NCP_HOST_USAGE APP_LOG_USAGE "[-s <server_address>[:<port>]] [-c <config>] [-t] [-h]" APP_LOG_NL
 
 // Options info.
 #define OPTIONS                                                                  \
@@ -59,10 +59,11 @@
   NCP_HOST_OPTIONS                                                               \
   APP_LOG_OPTIONS                                                                \
   "    -s  Socket connection parameters.\n"                                      \
-  "        <server_address> Address of the socket server (default: localhost)\n" \
+  "        <server_address> Address of the socket server (default: 127.0.0.1)\n" \
   "        <port>           Port of the socket server (default: 8080)\n"         \
   "    -c  Locator configuration file.\n"                                        \
   "        <config>         Path to the configuration file\n"                    \
+  "    -t  Print results to the terminal.\n"                                     \
   "    -h  Print this help message.\n"
 
 static void parse_config(char *filename);
@@ -80,6 +81,8 @@ static int32_t handle = -1;
 #include <windows.h>
 static SOCKET handle = -1;
 #endif // defined(POSIX) && POSIX == 1
+
+bool print = false;
 
 /**************************************************************************//**
  * Application Init.
@@ -109,6 +112,9 @@ void app_init(int argc, char *argv[])
       // Locator configuration file.
       case 'c':
         parse_config(optarg);
+        break;
+      case 'p':
+        print = true;
         break;
       // Print help.
       case 'h':
@@ -239,7 +245,10 @@ void app_on_iq_report(conn_properties_t *tag, aoa_iq_report_t *iq_report)
   rc = snprintf(payload, SOCKET_BUFFER_SIZE,
                 "{\n\t\"timeStamp\": %d,\n\t\"type\": \"auditory\", \n\t\"tagId\": \"%s\",\n\t\"azimuth\": %f,\n\t\"distance\": %f,\n\t\"elevation\": %f,\n\t\"quality\": %u\n}\r\n",
                 angle.sequence, tag_id, angle.azimuth, angle.distance, angle.elevation, angle.quality);
-  printf("%s", payload);
+  if (print) {
+    printf("%s", payload);
+  }
+
   if (rc < 0) {
     perror("snprintf");
     app_deinit();

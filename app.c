@@ -245,14 +245,15 @@ void app_on_iq_report(conn_properties_t *tag, aoa_iq_report_t *iq_report)
   rc = snprintf(payload, SOCKET_BUFFER_SIZE,
                 "{\n\t\"timeStamp\": %d,\n\t\"type\": \"auditory\", \n\t\"tagId\": \"%02X\",\n\t\"azimuth\": %f,\n\t\"distance\": %f,\n\t\"elevation\": %f,\n\t\"quality\": %u\n}\r\n",
                 angle.sequence, tag->address.addr[0], angle.azimuth, angle.distance, angle.elevation, angle.quality);
-  if (print) {
-    printf("%s", payload);
-  }
 
-  if (rc < 0) {
-    perror("snprintf");
+  if (rc > SOCKET_BUFFER_SIZE) {
+    app_log_error("Payload is incomplete. Please increase SOCKET_BUFFER_SIZE." APP_LOG_NL);
     app_deinit();
     exit(EXIT_FAILURE);
+  }
+
+  if (print) {
+    printf("%s", payload);
   }
 
   // Send message
